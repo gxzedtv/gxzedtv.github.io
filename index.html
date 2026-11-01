@@ -1,0 +1,391 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>gxzed Hub</title>
+<meta name="description" content="gxzed's community hub: chat commands, gx coins shop, leaderboard, gambling and rules.">
+<meta property="og:title" content="gxzed hub">
+<meta property="og:description" content="every chat command, the gx coins shop, live leaderboard and rules.">
+<meta name="theme-color" content="#1d0d45">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Cpath d=%22M4 50C26 16 74 16 96 50C74 84 26 84 4 50Z%22 fill=%22%23fff7ea%22 stroke=%22%23140a24%22 stroke-width=%227%22/%3E%3Cpath d=%22M38 36L62 64M62 36L38 64%22 stroke=%22%23ff3d8b%22 stroke-width=%2212%22 stroke-linecap=%22round%22/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Dela+Gothic+One&family=Space+Grotesk:wght@500;700&display=swap">
+<style>
+/* Layout: one sticker-bomb column; each section is a taped-on card over a dotted purple board. Single dark look on purpose (matches the stream). */
+:root {
+  --board: #1d0d45;
+  --board-2: #2a1162;
+  --ink: #140a24;
+  --paper: #fff7ea;
+  --muted: #c9bde8;
+  --pink: #ff3d8b;
+  --lime: #c4ff3a;
+  --blue: #3d8bff;
+  --orange: #ff8a1f;
+  --violet: #8b5cff;
+  --yellow: #ffe14d;
+  --font-display: "Dela Gothic One", "Arial Black", Impact, sans-serif;
+  --font-hand: "Caveat", "Comic Sans MS", cursive;
+  --font-body: "Space Grotesk", "Segoe UI", system-ui, sans-serif;
+  color-scheme: dark;
+}
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); background: var(--board); z-index: 10; }
+* { box-sizing: border-box; }
+html { background: var(--board); }
+body {
+  margin: 0; color: var(--paper); font-family: var(--font-body); font-size: 16px; line-height: 1.5;
+  background:
+    radial-gradient(circle at 15% 0%, rgba(255,61,139,.22), transparent 40%),
+    radial-gradient(circle at 90% 30%, rgba(61,139,255,.18), transparent 45%),
+    radial-gradient(rgba(160,120,255,.22) 1.6px, transparent 1.8px) 0 0 / 22px 22px,
+    var(--board);
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.wrap { max-width: 980px; margin: 0 auto; padding-block: 28px 64px; display: grid; gap: 34px; }
+a { color: inherit; }
+:focus-visible { outline: 3px solid var(--lime); outline-offset: 3px; }
+
+/* header */
+header { display: grid; gap: 14px; padding-top: 10px; }
+.wordmark { font-family: var(--font-display); font-size: clamp(64px, 14vw, 132px); line-height: .9; letter-spacing: -.04em; margin: 0;
+  color: var(--paper); -webkit-text-stroke: 0; text-shadow: 5px 5px 0 var(--ink), 9px 9px 0 var(--pink); }
+.wordmark .x { color: var(--lime); display: inline-block; transform: rotate(-9deg) scale(1.12); text-shadow: 5px 5px 0 var(--ink), 9px 9px 0 var(--blue); }
+.tagline { font-family: var(--font-hand); font-size: clamp(26px, 5vw, 34px); color: var(--lime); margin: 0; transform: rotate(-1.5deg); }
+.tagline small { color: var(--muted); font-size: .72em; }
+nav { display: flex; flex-wrap: wrap; gap: 10px; }
+.chip { font-family: var(--font-display); font-size: 14px; text-decoration: none; color: var(--ink); background: var(--paper);
+  border: 3px solid var(--ink); border-radius: 12px; padding: 6px 14px 8px; box-shadow: 4px 4px 0 var(--ink); transition: transform .1s; }
+.chip:hover { transform: translate(-1px,-2px) rotate(-1deg); }
+.chip.pink { background: var(--pink); color: var(--paper); } .chip.lime { background: var(--lime); }
+.chip.blue { background: var(--blue); color: var(--paper); } .chip.yellow { background: var(--yellow); }
+.chip.orange { background: var(--orange); }
+
+/* cards */
+section { scroll-margin-top: 20px; }
+.card { position: relative; background: var(--paper); color: var(--ink); border: 4px solid var(--ink);
+  border-radius: 20px 26px 18px 28px / 26px 18px 28px 20px; box-shadow: 9px 9px 0 0 var(--c, var(--pink)), 9px 9px 0 4px var(--ink);
+  padding: 34px clamp(16px, 4vw, 34px) 26px; }
+.card:nth-of-type(odd) { transform: rotate(-.4deg); } .card:nth-of-type(even) { transform: rotate(.35deg); }
+.tape { position: absolute; width: 110px; height: 30px; background: rgba(255,244,214,.85); border: 1.5px solid rgba(20,10,36,.15); top: -14px; left: 28px; transform: rotate(-6deg); }
+.label { position: absolute; top: -20px; right: 24px; font-family: var(--font-display); font-size: 15px; background: var(--c, var(--pink));
+  color: var(--ink); border: 3px solid var(--ink); border-radius: 10px; padding: 3px 12px 5px; transform: rotate(3deg); }
+h2 { font-family: var(--font-display); font-size: clamp(30px, 6vw, 44px); line-height: 1; letter-spacing: -.02em; margin: 0 0 6px; text-wrap: balance; }
+.note { font-family: var(--font-hand); font-size: 26px; color: #c2185b; margin: 0 0 18px; line-height: 1.1; }
+p { margin: 0 0 12px; max-width: 65ch; }
+
+/* commands */
+.tools { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 16px; }
+#q { flex: 1 1 220px; min-width: 0; font: 600 16px var(--font-body); padding: 10px 14px; border: 3px solid var(--ink); border-radius: 12px; background: #fff; color: var(--ink); }
+.filters { display: flex; flex-wrap: wrap; gap: 8px; }
+.filters button { font: 700 14px var(--font-body); border: 3px solid var(--ink); border-radius: 999px; padding: 6px 12px; background: #fff; color: var(--ink); cursor: pointer; }
+.filters button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+.cmds { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
+.cmd { text-align: left; display: grid; gap: 4px; align-content: start; background: #fff; border: 3px solid var(--ink); border-radius: 14px;
+  padding: 12px 14px 13px; cursor: pointer; font: inherit; color: var(--ink); box-shadow: 4px 4px 0 var(--k, var(--lime)); transition: transform .1s; min-width: 0; }
+.cmd:hover { transform: translate(-1px,-2px); }
+.cmd code { font: 400 19px var(--font-display); overflow-wrap: anywhere; }
+.cmd span { font-size: 14.5px; line-height: 1.4; }
+.cmd em { font-style: normal; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; opacity: .55; }
+.cmd.copied { background: var(--lime); }
+.empty { font-family: var(--font-hand); font-size: 26px; color: #c2185b; }
+
+/* coins */
+.split { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; }
+.earn { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.earn li { display: flex; justify-content: space-between; gap: 12px; border-bottom: 2px dashed rgba(20,10,36,.2); padding-bottom: 6px; }
+.earn b { font-family: var(--font-display); font-weight: 400; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.shop { display: grid; gap: 10px; }
+.item { display: grid; grid-template-columns: 1fr auto; gap: 2px 12px; align-items: baseline; background: #fff; border: 3px solid var(--ink);
+  border-radius: 12px; padding: 10px 14px; cursor: pointer; font: inherit; color: var(--ink); text-align: left; }
+.item strong { font-family: var(--font-display); font-weight: 400; font-size: 17px; }
+.item .cost { font-family: var(--font-display); font-size: 16px; background: var(--yellow); border: 2.5px solid var(--ink); border-radius: 8px; padding: 1px 8px 3px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.item small { grid-column: 1 / -1; font-size: 14px; opacity: .8; }
+.item.copied { background: var(--lime); }
+
+/* gamble */
+.games { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+.game { border: 3px solid var(--ink); border-radius: 14px; padding: 14px; background: var(--g); }
+.game h3 { font-family: var(--font-display); font-weight: 400; font-size: 22px; margin: 0 0 4px; }
+.game code { font: 700 15px var(--font-body); background: rgba(255,255,255,.7); border-radius: 6px; padding: 1px 6px; }
+.game p { font-size: 14.5px; margin: 6px 0 0; }
+
+/* rules */
+.rules { counter-reset: r; display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; }
+.rules li { counter-increment: r; display: grid; grid-template-columns: 44px 1fr; gap: 12px; align-items: center; font-size: 17px; }
+.rules li::before { content: counter(r); font-family: var(--font-display); font-size: 22px; width: 40px; height: 40px; display: grid; place-items: center;
+  background: var(--pink); color: var(--paper); border: 3px solid var(--ink); border-radius: 50% 46% 52% 48%; }
+
+.cta-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
+footer { text-align: center; font-family: var(--font-hand); font-size: 26px; color: var(--muted); }
+footer .eye { color: var(--lime); }
+.toast { position: fixed; left: 50%; bottom: calc(18px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%) translateY(140%);
+  background: var(--lime); color: var(--ink); border: 3px solid var(--ink); border-radius: 12px; padding: 8px 16px;
+  font: 400 16px var(--font-display); box-shadow: 4px 4px 0 var(--ink); transition: transform .25s; z-index: 5; }
+.toast.on { transform: translateX(-50%) translateY(0); }
+.live { display: inline-flex; align-items: center; gap: 8px; font: 400 15px var(--font-display); color: var(--ink); background: var(--muted);
+  border: 3px solid var(--ink); border-radius: 999px; padding: 4px 14px 6px; box-shadow: 3px 3px 0 var(--ink); text-decoration: none; width: fit-content; }
+.live i { width: 11px; height: 11px; border-radius: 50%; background: #6b5a8e; border: 2px solid var(--ink); }
+.live.on { background: #ff2e4d; color: var(--paper); } .live.on i { background: var(--paper); animation: blink 1s steps(2) infinite; }
+@keyframes blink { 50% { opacity: .3; } }
+.board { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; counter-reset: b; }
+.board li { counter-increment: b; display: grid; grid-template-columns: 40px 1fr auto; gap: 10px; align-items: center; background: #fff;
+  border: 3px solid var(--ink); border-radius: 12px; padding: 8px 12px; }
+.board li::before { content: counter(b); font: 400 18px var(--font-display); text-align: center; }
+.board li:nth-child(1) { background: var(--yellow); } .board li:nth-child(2) { background: #eef0ff; } .board li:nth-child(3) { background: #ffe1c7; }
+.board b { font-weight: 700; overflow-wrap: anywhere; min-width: 0; }
+.board span { font: 400 16px var(--font-display); font-variant-numeric: tabular-nums; }
+.hint { font-size: 13px; opacity: .7; margin-top: 10px; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+
+
+<body>
+<div class="wrap">
+  <header>
+    <h1 class="wordmark">g<span class="x">x</span>zed</h1>
+    <a class="live" id="live" href="https://twitch.tv/gx7edfn" target="_blank" rel="noopener"><i></i><span id="liveText">checking…</span></a>
+    <p class="tagline">the community hub. commands, coins, gambling, rules. <small>(it's pronounced gazed)</small></p>
+    <nav aria-label="Sections">
+      <a class="chip pink" href="https://twitch.tv/gx7edfn" target="_blank" rel="noopener">watch live ↗</a>
+      <a class="chip lime" href="#commands">commands</a>
+      <a class="chip yellow" href="#coins">gx coins &amp; shop</a>
+      <a class="chip" href="#leaderboard">leaderboard</a>
+      <a class="chip orange" href="#gamble">gamble</a>
+      <a class="chip blue" href="#rules">rules</a>
+    </nav>
+  </header>
+
+  <section id="commands" class="card" style="--c: var(--lime)">
+    <div class="tape"></div><div class="label">tap to copy</div>
+    <h2>chat commands</h2>
+    <p class="note">type these in chat. tap a card to copy it.</p>
+    <div class="tools">
+      <input id="q" type="search" placeholder="search commands…" aria-label="Search commands" autocomplete="off">
+      <div class="filters" id="filters" role="group" aria-label="Filter commands"></div>
+    </div>
+    <div class="cmds" id="cmds"></div>
+    <p class="empty" id="empty" hidden>nothing matches. try a shorter word?</p>
+  </section>
+
+  <section id="coins" class="card" style="--c: var(--yellow)">
+    <div class="tape"></div><div class="label">💰 gx coins</div>
+    <h2>gx coins &amp; the shop</h2>
+    <p class="note">you earn coins just by hanging out. spend them on making me suffer.</p>
+    <div class="split">
+      <div>
+        <ul class="earn">
+          <li>watching the stream <b>10 / 5 min</b></li>
+          <li>following the channel <b>+250</b></li>
+          <li>cheering 100 bits <b>+100</b></li>
+          <li>raiding in <b>+50</b></li>
+        </ul>
+        <p style="margin-top:14px">Check your balance with <code>!points</code>. Redeem in chat with <code>!redeem itemname</code>, or tap an item to copy its command.</p>
+        <div class="cta-row">
+          <a class="chip yellow" href="https://streamelements.com/gx7edfn/store" target="_blank" rel="noopener">open the live shop ↗</a>
+          <a class="chip blue" href="#leaderboard">coin leaderboard</a>
+        </div>
+      </div>
+      <div><div class="shop" id="shop"></div><p class="hint" id="shopHint">prices pulled live from StreamElements</p></div>
+    </div>
+  </section>
+
+  <section id="leaderboard" class="card" style="--c: var(--violet)">
+    <div class="tape"></div><div class="label">🏆 live</div>
+    <h2>coin leaderboard</h2>
+    <p class="note">the richest lurkers in the chat. updates live.</p>
+    <ol class="board" id="board"><li><b>loading…</b><span></span></li></ol>
+    <p class="hint" id="boardHint"></p>
+  </section>
+
+  <section id="gamble" class="card" style="--c: var(--orange)">
+    <div class="tape"></div><div class="label">🎰 at your own risk</div>
+    <h2>gamble your coins</h2>
+    <p class="note">the house always wins. probably.</p>
+    <div class="games">
+      <div class="game" style="--g: #ffd9e8"><h3>roulette</h3><code>!roulette 100</code> <code>!roulette all</code><p>Double or nothing. <code>!gamble</code> explains it too.</p></div>
+      <div class="game" style="--g: #e6ffc0"><h3>slots</h3><code>!slots 50</code><p>Spin the slot machine. Match the emotes, win big.</p></div>
+      <div class="game" style="--g: #dbe8ff"><h3>duel</h3><code>!duel @name 100</code><p>Challenge someone. They type <code>!accept</code>, the winner takes the pot.</p></div>
+      <div class="game" style="--g: #fff3b8"><h3>raffles</h3><code>!join</code><p>When gxzed or a mod starts a raffle, join for a shot at free coins.</p></div>
+    </div>
+  </section>
+
+  <section id="rules" class="card" style="--c: var(--blue)">
+    <div class="tape"></div><div class="label">read pls</div>
+    <h2>chat rules</h2>
+    <p class="note">short list, easy to follow.</p>
+    <ol class="rules">
+      <li>be nice. no hate of any kind, ever.</li>
+      <li>no spoilers. it's a blind run, let me suffer in peace.</li>
+      <li>no backseating unless I ask (I will ask).</li>
+      <li>english in chat so the mods can keep up.</li>
+      <li>no self-promo or links without asking a mod.</li>
+      <li>have fun, that's the whole point.</li>
+    </ol>
+    <div class="cta-row">
+      <a class="chip" href="https://x.com/gx7edfn" target="_blank" rel="noopener">X @gx7edfn ↗</a>
+      <a class="chip pink" href="https://youtube.com/@gx7edfn" target="_blank" rel="noopener">YouTube ↗</a>
+    </div>
+  </section>
+
+  <footer>made for chat, by gxzed <span class="eye">👁</span></footer>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite">copied</div>
+
+<script>
+const COMMANDS = [
+  // [command, what it does, group]
+  ["!commands", "Shows the main commands in chat", "basics"],
+  ["!points", "How many gx coins you have", "basics"],
+  ["!store", "Lists the shop items and prices", "basics"],
+  ["!socials", "gxzed's X and YouTube", "basics"],
+  ["!gxzed", "How to say the name (it's gazed)", "basics"],
+  ["!deaths", "Where to see the death count", "basics"],
+  ["!top", "Top coin holders right now", "basics"],
+  ["!hype", "Stars explode on stream + HYPE!!", "on stream"],
+  ["!gg", "Slams a giant GG on screen", "on stream"],
+  ["!f", "Drops a huge F to pay respects", "on stream"],
+  ["!clip", "Camera flash + CLIP IT! stamp", "on stream"],
+  ["!love", "Hearts float up the screen", "on stream"],
+  ["!hydrate", "Hydrate-check card for gxzed", "on stream"],
+  ["!lurk", "An eye peeks up so gxzed knows you're here", "on stream"],
+  ["!aim", "Rates gxzed's aim today", "fun"],
+  ["!vibecheck", "Your vibe, as a percentage", "fun"],
+  ["!stare @name", "Start a staring contest with someone", "fun"],
+  ["!ship @name", "How compatible you two are", "fun"],
+  ["!bonk @name", "Bonk someone (affectionately)", "fun"],
+  ["!hug @name", "Give someone a hug", "fun"],
+  ["!fortune", "Your fortune for the stream", "fun"],
+  ["!8ball question", "Ask the magic 8-ball", "fun"],
+  ["!rigged", "Adds to the 'it's rigged' counter", "fun"],
+  ["!quote", "Random quote from the stream archive", "fun"],
+  ["!roulette 100", "Double or nothing with your coins", "gamble"],
+  ["!slots 50", "Spin the slot machine", "gamble"],
+  ["!duel @name 100", "1v1 someone for coins", "gamble"],
+  ["!givepoints @name 50", "Gift coins to someone", "gamble"],
+  ["!poll Q | A | B", "Mods: start an on-screen poll. Chat votes with 1, 2, 3", "mods"],
+  ["!endpoll", "Mods: end the poll and show the winner", "mods"],
+  ["!death", "Mods: +1 on the death counter", "mods"],
+  ["!addquote text", "Mods: save something funny to the quote archive", "mods"],
+  ["!effects off", "Mods: pause on-screen effects (on to resume)", "mods"],
+];
+const GROUP_COLOR = { basics: "var(--lime)", "on stream": "var(--pink)", fun: "var(--blue)", gamble: "var(--orange)", mods: "var(--violet)" };
+const SHOP = [
+  ["Hydrate Me", "hydrateme", 100, "I take a big sip, no questions asked"],
+  ["Posture Check", "posturecheck", 200, "I fix my posture on stream"],
+  ["Stare Contest", "starecontest", 500, "15 seconds, no blinking. if I blink, I lose"],
+  ["Name Something", "namesomething", 800, "Name my next character / pet / base"],
+  ["Questionable Aim", "questionableaim", 1000, "Chat picks my crosshair or sensitivity"],
+  ["Song Request", "songrequest", 1200, "I queue your song (keep it streamable)"],
+  ["Ban a Word", "banaword", 1500, "I can't say your word for 10 minutes"],
+  ["Pick the Next Game", "pickthenextgame", 2500, "You choose what we play next"],
+];
+
+const toast = document.getElementById("toast"); let tT;
+async function copy(text, el) {
+  let ok = false;
+  try { await navigator.clipboard.writeText(text); ok = true; } catch (e) {}
+  toast.textContent = ok ? `copied ${text}` : `type: ${text}`;
+  toast.classList.add("on"); clearTimeout(tT); tT = setTimeout(() => toast.classList.remove("on"), 1800);
+  if (el) { el.classList.add("copied"); setTimeout(() => el.classList.remove("copied"), 700); }
+}
+
+const groups = ["all", ...new Set(COMMANDS.map(c => c[2]))];
+let active = "all";
+try { active = localStorage.getItem("hub-filter") || "all"; } catch (e) {}
+if (!groups.includes(active)) active = "all";
+const fWrap = document.getElementById("filters");
+groups.forEach(g => {
+  const b = document.createElement("button"); b.type = "button"; b.textContent = g; b.id = "f-" + g.replace(/\s/g, "-");
+  b.setAttribute("aria-pressed", g === active); b.onclick = () => { active = g; try { localStorage.setItem("hub-filter", g); } catch (e) {} renderCmds(); };
+  fWrap.appendChild(b);
+});
+const q = document.getElementById("q"); q.addEventListener("input", renderCmds);
+function renderCmds() {
+  [...fWrap.children].forEach(b => b.setAttribute("aria-pressed", b.textContent === active));
+  const term = q.value.trim().toLowerCase();
+  const list = COMMANDS.filter(([c, d, g]) => (active === "all" || g === active) && (!term || (c + " " + d).toLowerCase().includes(term)));
+  const box = document.getElementById("cmds"); box.innerHTML = "";
+  list.forEach(([c, d, g]) => {
+    const el = document.createElement("button"); el.type = "button"; el.className = "cmd"; el.style.setProperty("--k", GROUP_COLOR[g]);
+    el.innerHTML = `<em></em><code></code><span></span>`;
+    el.querySelector("em").textContent = g; el.querySelector("code").textContent = c; el.querySelector("span").textContent = d;
+    el.onclick = () => copy(c.split(" ")[0], el);
+    box.appendChild(el);
+  });
+  document.getElementById("empty").hidden = list.length > 0;
+}
+renderCmds();
+
+const shop = document.getElementById("shop");
+SHOP.forEach(([name, id, cost, desc]) => {
+  const el = document.createElement("button"); el.type = "button"; el.className = "item";
+  el.innerHTML = `<strong></strong><span class="cost"></span><small></small>`;
+  el.querySelector("strong").textContent = name; el.querySelector(".cost").textContent = cost.toLocaleString() + " 💰";
+  el.querySelector("small").textContent = desc;
+  el.onclick = () => copy("!redeem " + id, el);
+  shop.appendChild(el);
+});
+
+/* ── live data from StreamElements (public, read-only) ── */
+const TWITCH = "gx7edfn";                      // change to gxzedtv after the rename
+const SE_ID = "6ae2c079ef8923294845712d";      // StreamElements channel id (doesn't change on rename)
+const API = "https://api.streamelements.com/kappa/v2";
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+
+document.querySelectorAll('a[href*="twitch.tv/gx7edfn"]').forEach(a => a.href = "https://twitch.tv/" + TWITCH);
+
+async function liveShop() {
+  try {
+    const items = await (await fetch(`${API}/store/${SE_ID}/items?source=website`)).json();
+    const list = items.filter(i => i.enabled !== false && i.bot?.identifier).sort((a, b) => a.cost - b.cost);
+    if (!list.length) return;
+    shop.innerHTML = "";
+    list.forEach(i => {
+      const el = document.createElement("button"); el.type = "button"; el.className = "item";
+      el.innerHTML = `<strong>${esc(i.name)}</strong><span class="cost">${Number(i.cost).toLocaleString()} 💰</span><small>${esc(i.description || "")}</small>`;
+      el.onclick = () => copy("!redeem " + i.bot.identifier, el);
+      shop.appendChild(el);
+    });
+  } catch (e) { document.getElementById("shopHint").textContent = "showing saved prices (couldn't reach StreamElements)"; }
+}
+
+async function liveBoard() {
+  const board = document.getElementById("board"), hint = document.getElementById("boardHint");
+  try {
+    const d = await (await fetch(`${API}/points/${SE_ID}/top?limit=10`)).json();
+    const users = (d.users || []).filter(u => u.username !== TWITCH);
+    if (!users.length) { board.innerHTML = '<li><b>nobody yet. watch a stream and claim #1</b><span>0</span></li>'; return; }
+    board.innerHTML = users.map(u => `<li><b>${esc(u.username)}</b><span>${Number(u.points).toLocaleString()} 💰</span></li>`).join("");
+    hint.textContent = `updated ${new Date().toLocaleTimeString([], { hour: "numeric", minute: "2-digit" })}`;
+  } catch (e) { board.innerHTML = '<li><b>couldn\'t load the leaderboard right now</b><span></span></li>'; }
+}
+
+async function liveCommands() {
+  try {
+    const cmds = await (await fetch(`${API}/bot/commands/${SE_ID}/public`)).json();
+    const known = new Set(COMMANDS.map(c => c[0].split(" ")[0]));
+    cmds.filter(c => c.enabled && !c.hidden && c.accessLevel <= 100 && !known.has("!" + c.command)).forEach(c => {
+      const desc = String(c.reply || "").replace(/\$\{[^}]*\}/g, "…").replace(/\s+/g, " ").slice(0, 70);
+      COMMANDS.push(["!" + c.command, desc || "custom command", "fun"]);
+    });
+    renderCmds();
+  } catch (e) {}
+}
+
+async function liveStatus() {
+  const el = document.getElementById("live"), t = document.getElementById("liveText");
+  try {
+    const txt = await (await fetch(`https://decapi.me/twitch/uptime/${TWITCH}`)).text();
+    const on = !/offline|error|not found/i.test(txt);
+    el.classList.toggle("on", on); t.textContent = on ? `LIVE now · ${txt}` : "offline · follow for pings";
+  } catch (e) { t.textContent = "twitch.tv/" + TWITCH; }
+}
+
+liveShop(); liveBoard(); liveCommands(); liveStatus();
+setInterval(liveBoard, 60000); setInterval(liveStatus, 120000);
+</script>
+</body>
+</html>
