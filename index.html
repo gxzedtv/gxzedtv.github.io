@@ -146,10 +146,10 @@ footer .eye { color: var(--lime); }
 <div class="wrap">
   <header>
     <h1 class="wordmark">g<span class="x">x</span>zed</h1>
-    <a class="live" id="live" href="https://twitch.tv/gx7edfn" target="_blank" rel="noopener"><i></i><span id="liveText">checking…</span></a>
+    <a class="live" id="live" href="https://twitch.tv/gxzedtv" target="_blank" rel="noopener"><i></i><span id="liveText">checking…</span></a>
     <p class="tagline">the community hub. commands, coins, gambling, rules. <small>(it's pronounced gazed)</small></p>
     <nav aria-label="Sections">
-      <a class="chip pink" href="https://twitch.tv/gx7edfn" target="_blank" rel="noopener">watch live ↗</a>
+      <a class="chip pink" href="https://twitch.tv/gxzedtv" target="_blank" rel="noopener">watch live ↗</a>
       <a class="chip lime" href="#commands">commands</a>
       <a class="chip yellow" href="#coins">gx coins &amp; shop</a>
       <a class="chip" href="#leaderboard">leaderboard</a>
@@ -184,7 +184,7 @@ footer .eye { color: var(--lime); }
         </ul>
         <p style="margin-top:14px">Check your balance with <code>!points</code>. Redeem in chat with <code>!redeem itemname</code>, or tap an item to copy its command.</p>
         <div class="cta-row">
-          <a class="chip yellow" href="https://streamelements.com/gx7edfn/store" target="_blank" rel="noopener">open the live shop ↗</a>
+          <a class="chip yellow" href="https://streamelements.com/gxzedtv/store" target="_blank" rel="noopener">open the live shop ↗</a>
           <a class="chip blue" href="#leaderboard">coin leaderboard</a>
         </div>
       </div>
@@ -225,7 +225,7 @@ footer .eye { color: var(--lime); }
       <li>have fun, that's the whole point.</li>
     </ol>
     <div class="cta-row">
-      <a class="chip" href="https://x.com/gx7edfn" target="_blank" rel="noopener">X @gx7edfn ↗</a>
+      <a class="chip" href="https://x.com/gxzedfn" target="_blank" rel="noopener">X @gxzedfn ↗</a>
       <a class="chip pink" href="https://youtube.com/@gx7edfn" target="_blank" rel="noopener">YouTube ↗</a>
     </div>
   </section>
@@ -330,12 +330,12 @@ SHOP.forEach(([name, id, cost, desc]) => {
 });
 
 /* ── live data from StreamElements (public, read-only) ── */
-const TWITCH = "gx7edfn";                      // change to gxzedtv after the rename
+const TWITCH = "gxzedtv";
 const SE_ID = "6ae2c079ef8923294845712d";      // StreamElements channel id (doesn't change on rename)
 const API = "https://api.streamelements.com/kappa/v2";
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 
-document.querySelectorAll('a[href*="twitch.tv/gx7edfn"]').forEach(a => a.href = "https://twitch.tv/" + TWITCH);
+document.querySelectorAll('a[href*="twitch.tv/gxzedtv"]').forEach(a => a.href = "https://twitch.tv/" + TWITCH);
 
 async function liveShop() {
   try {
